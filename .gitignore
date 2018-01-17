@@ -1,0 +1,10 @@
+/__pycache__
+
+# This is the virtual environment folder
+/venv
+
+# Python cached/byte files
+*.py[cod]
+
+# VS Code setup files I presume
+.vscode/

@@ -1,0 +1,71 @@
+<!doctype html>
+<head>
+    <link rel='stylesheet' href='{{url_for("static", filename="css/searchResults.css")}}' />
+    <script type='text/javascript' src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+    <script type='text/javascript'>
+
+        $('form').submit(function(e) {
+            e.preventDefault();
+            var theForm = $(this);
+            var theData = theForm.serialize();
+
+            theData.image_height = $('#img_height_textbox').val();
+            theData.image_width = $('#img_width_textbox').val();
+
+            var targetUrl = theForm.attr('action');
+            var messageSpan = theForm.find('span');
+            $.ajax(targetUrl,
+                {
+                    method:'POST',
+                    data:theData,
+                    dataType: 'json'
+                }).then(function(response) {
+                    messageSpan.text(response.data);
+                }, function() {
+                    messageSpan.text('Error downloading image from ' + theData.image_link);
+                });
+        });
+
+        $('img').click(function(e) {
+            var imgLink = $(this).attr('src');
+            window.open(imgLink, '_blank');
+        });
+    </script>
+</head>
+
+<body>
+    <a href='{{url_for("index")}}'>Start New Search</a>
+    <hr>
+
+    <span>Enter image dimensions (if only one is entered, aspect ratio will be preserved based on the other)</span>
+
+    <div>
+        <label for='imageHeight'>Height</label>
+        <input id='img_height_textbox' type='text' name='imageHeight' />
+        
+        <label for='imageWidth'>Width</label>
+        <input id='img_width_textbox' type='text' name='imageWidth' />
+    </div>
+    
+    <br/>
+    <br/>
+    
+    {% for searchTerm, result in results.items() %}
+        <article class='resultRow'>
+            <h3>{{searchTerm}}</h3>
+            {% for item in result['items'] %}
+                <div class='imageResult'>
+                    <img src='{{item["link"]}}' title='click to open image in separate pane'/>
+                    <form action='{{url_for("saveImage")}}' method='POST'>
+                        <input type='hidden' name='image_url' value='{{item["link"]}}' />
+                        <input type='hidden' name='image_mime' value='{{item["mime"]}}' />
+                        <input type='hidden' name='result_index' value='{{loop.index}}' />
+                        <input type='hidden' name='search_term' value='{{searchTerm}}' />
+                        <input type='submit' value='Save Image' />
+                        <span></span>
+                    </form>
+                </div>
+            {% endfor %}
+        </article>
+    {% endfor %}
+</body>

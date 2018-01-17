@@ -1,0 +1,44 @@
+<!doctype html>
+<head>
+    <script type='text/javascript' src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+</head>
+
+<body>
+    <form action='{{url_for("search_results")}}' method='post'>
+        <p>
+            <label for='searchTerms'>Enter search terms separated by line</label for='searchTerms'>
+            <textarea id='searchTerms' name='searchTerms'></textarea>
+        </p>
+        <p>
+            <label for='api_key'>Google API Key:</label><input id='api_key' type='text' name='api_key' />
+        </p>
+        <p>
+            <label for='search_engine_id'>Search Engine Id:</label><input id='search_engine_id' type='text' name='search_engine_id' />
+        </p>
+        <p>
+            <label for='results_per_term'>Results per term:</label><input id='results_per_term' type='text' name='results_per_term' />
+        </p>
+
+        <p>
+            <label for='safe_search_level'>Safe Search Level:</label>
+            <select id='safe_search_level' name='safe_search_level'>
+                <option value='off'>Off</option>
+                <option value='medium'>Medium</option>
+                <option value='high'>High</option>
+            </select>
+        </p>
+
+        <p>
+            <label for='picture_rights'></label>
+            <select id='picture_rights' name='picture_rights'>
+                    <option value='cc_publicdomain'>cc_publicdomain</option>
+                    <option value='cc_attribute'>cc_attribute</option>
+                    <option value='cc_sharealike'>cc_sharealike</option>
+                    <option value='cc_noncommercial'>cc_noncommercial</option>
+                    <option value='cc_nonderived'>cc_nonderived</option>
+            </select>
+        </p>
+
+        <input type='submit' value='Search' />
+    </form>
+</body>

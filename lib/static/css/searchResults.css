@@ -1,0 +1,20 @@
+img {
+    max-height: 300px;
+    max-width: 300px;
+    height: auto;
+    width: auto;
+}
+
+.resultRow {
+    max-height: 500px;
+    border-width:5px;
+    border-style:inset;
+    border-color:burlywood
+}
+
+.imageResult {
+    max-height: 475px;
+    border-width: 3px;
+    border-style: groove;
+    border-color: darkslategrey;
+}
